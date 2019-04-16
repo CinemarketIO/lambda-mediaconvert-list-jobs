@@ -1,0 +1,21 @@
+service: mediaconvert-list-jobs
+provider:
+    name: aws
+    runtime: nodejs8.10
+    region: eu-central-1
+    stage: dev
+    iamRoleStatements:
+        - Effect: "Allow"
+          Action:
+              - "mediaconvert:ListJobs"
+          Resource: "arn:aws:mediaconvert"
+functions:
+    jobs:
+        handler: handler.jobs
+        environment:
+            MEDIACONVERT_ACCESS_POINT: ${ssm:mediaconvertAccessPoint}
+        events:
+            - http:
+                path: jobs
+                method: get
+                cors: true

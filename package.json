@@ -1,0 +1,20 @@
+{
+  "name": "lambda-mediaconvert-list-jobs",
+  "version": "0.0.1",
+  "description": "A lambda to mirror MediaConvert's listJobs without exposing data",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mediaconvert",
+    "lambda",
+    "serverless",
+    "aws"
+  ],
+  "author": "Tim Daubenschuetz",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "2.437.0"
+  }
+}
