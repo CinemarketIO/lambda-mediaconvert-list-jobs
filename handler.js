@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 module.exports.jobs = async event => {
   const params = {
     MaxResults: 10,
-    Order: 'ASCENDING',
+    Order: 'DESCENDING',
     Queue: 'Default',
   };
 
@@ -34,24 +34,18 @@ module.exports.jobs = async event => {
   // Remove data from jobs endpoint
   const jobs = [];
   for (let job of data.Jobs) {
-    const {
-      Settings,
-      JobPercentageComplete,
-      ErrorCode,
-      Status,
-      ErrorMessage,
-    } = job;
+    const {Settings, JobPercentComplete, ErrorCode, Status, ErrorMessage} = job;
 
     // NOTE: For us Mediaconvert can only have a single input
     const fileInput = Settings.Inputs[0].FileInput;
-    const fileSplit = fileInput.split("/");
+    const fileSplit = fileInput.split('/');
 
     const cleanJob = {
-      jobPercentageComplete: JobPercentageComplete,
+      jobPercentComplete: JobPercentComplete,
       errorCode: ErrorCode,
       status: Status,
       errorMessage: ErrorMessage,
-      fileInput: fileSplit[fileSplit.length-1]
+      fileInput: fileSplit[fileSplit.length - 1],
     };
     jobs.push(cleanJob);
   }
